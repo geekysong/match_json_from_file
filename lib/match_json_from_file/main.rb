@@ -8,6 +8,8 @@ module MatchJsonFromFile
 
     # perform query on the output, where query is a string following specific syntax, and output is a stream
     def execute(query, output)
+      raise "undefined query" if query.empty?
+
       output << "[]"
       output << "\n"
     end
