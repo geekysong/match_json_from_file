@@ -8,7 +8,8 @@ query
 In the folder, do:
 
 ```bash
-gem install match_json_from_file
+gem build match_json_from_file
+gem install match_json_from_file-*.gem
 ```
 
 ## Usage

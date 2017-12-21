@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "match_json_from_file"
+
+puts "all match starts here."
