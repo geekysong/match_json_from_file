@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-
+require "bundler/setup"
 require "match_json_from_file"
 
-puts "all match starts here."
+# make sure query is here
+MatchJsonFromFile::Main.new(STDIN).execute(ARGV[1], STDOUT)
+
