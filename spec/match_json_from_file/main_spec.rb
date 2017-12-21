@@ -26,12 +26,19 @@ RSpec.describe MatchJsonFromFile::Main do
   end
 
   context "failure" do
-    let(:input) { "[]" }
+    let(:input) { StringIO.new "[]" }
 
     describe "no query" do
       let(:query) { "" }
 
       it { expect { do_query }.to raise_error(RuntimeError, /undefined query/) }
+    end
+
+    describe "invalid json" do
+      let(:query) { "key:value" }
+      let(:input) { StringIO.new"[not_valid]" }
+
+      it { expect { do_query }.to raise_error(JSON::ParserError, /not_valid/) }
     end
   end
 end
