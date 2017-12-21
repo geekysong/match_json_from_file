@@ -13,7 +13,7 @@ module MatchJsonFromFile
       raise "undefined query" if query.empty?
 
       parsed_query = parse_query(query)
-      json_input = JSON.parse(@input)
+      json_input = JSON.parse(@input.readlines.join("\n"))
       json_output = json_input.select { |obj| match?(obj, parsed_query) }
 
       output << json_output.to_json
