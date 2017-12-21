@@ -16,6 +16,11 @@ RSpec.describe MatchJsonFromFile::Main do
       let(:input) { "[]" }
       it { expect(output.string).to eq("[]\n") }
     end
+
+    describe "simple object" do
+      let(:input) { '[{"name": "songyy", "age":"10"}, {"name": "another", "age":"22"}]' }
+      it { expect(output.string).to eq('[{"name":"songyy","age":"10"}]' + "\n") }
+    end
   end
 
   context "failure" do
