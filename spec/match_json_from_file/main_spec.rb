@@ -1,12 +1,18 @@
 require "spec_helper"
 
+# The feature spec - functional test
 RSpec.describe MatchJsonFromFile::Main do
-  subject { MatchJsonFromFile::Main.new(input) }
-
+  let(:input_stream) { File.open("spec/resources/projects.json", "r") }
   let(:output) { StringIO.new }
-  let(:input) { File.open("spec/resources/projects.json", "r") }
+  let(:json_producer) { MatchJsonFromFile::Json::Producer.new(input_stream) }
+  let(:printer) { MatchJsonFromFile::Json::Output.new(output) }
 
-  let(:do_query) { subject.execute([query], output) }
+  let(:options) { MatchJsonFromFile::SearchOptionParser.new.parse([query]) }
+  let(:matcher) { MatchJsonFromFile::Json::Matcher.new(options) }
+
+  subject { MatchJsonFromFile::Main.new(json_producer, printer, matcher) }
+
+  let(:do_query) { subject.execute }
 
   context "success" do
     before { do_query }
@@ -26,7 +32,7 @@ RSpec.describe MatchJsonFromFile::Main do
   end
 
   context "failure" do
-    let(:input) { StringIO.new "[]" }
+    let(:input_stream) { StringIO.new "[]" }
 
     describe "no query" do
       let(:query) { "" }
@@ -36,7 +42,7 @@ RSpec.describe MatchJsonFromFile::Main do
 
     describe "invalid json" do
       let(:query) { "key:value" }
-      let(:input) { StringIO.new"[not_valid]" }
+      let(:input_stream) { StringIO.new "[not_valid]" }
 
       it { expect { do_query }.to raise_error(JSON::ParserError, /not_valid/) }
     end

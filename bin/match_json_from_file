@@ -3,5 +3,11 @@ require "bundler/setup"
 require "match_json_from_file"
 
 # make sure query is here
-MatchJsonFromFile::Main.new(STDIN).execute(ARGV, STDOUT)
+
+json_producer = Json::Producer.new(STDIN)
+json_output = Json::Output.new(STDOUT)
+options = SearchOptionParser.new.parse(argv)
+json_matcher = Json::Matcher.new(options)
+
+MatchJsonFromFile::Main.new(json_producer, json_output, json_matcher).execute
 
