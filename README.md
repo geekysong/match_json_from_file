@@ -17,3 +17,14 @@ gem install match_json_from_file-*.gem
 ```bash
 match_json_from_file /path/to/file.json "key1:value1;key2:value2"
 ```
+
+## TODOs
+
+- [ ] input arguments
+  - supports (therefore, needs to define) the query types
+  - display help message on default
+- [ ] error handling
+  - make sure to display meaningful error message on error
+- [ ] program effiency
+  - test with large file
+  - make sure it doesn't provide too much garbage

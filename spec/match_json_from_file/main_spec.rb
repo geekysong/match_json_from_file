@@ -41,4 +41,8 @@ RSpec.describe MatchJsonFromFile::Main do
       it { expect { do_query }.to raise_error(JSON::ParserError, /not_valid/) }
     end
   end
+
+  context "performance" do
+    pending "performance test via GC stats"
+  end
 end
