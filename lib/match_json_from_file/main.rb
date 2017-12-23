@@ -1,35 +1,25 @@
-require 'json'
-
 module MatchJsonFromFile
   # The entry point for the executable
   class Main
     # input is a InputStream
     def initialize(input)
-      @input = input
+      @json_producer = Json::Producer.new(input)
     end
 
     # perform query on the output, where query is a string following specific syntax, and output is a stream
     def execute(argv, output)
-      query = argv.first
-      raise "undefined query" if query.empty?
+      options = SearchOptionParser.new.parse(argv)
+      json_matcher = Json::Matcher.new(options)
+      json_output = Json::Output.new(output)
 
-      parsed_query = parse_query(query)
-
-      json_input = JSON.parse(@input.readlines.join("\n"))
-      json_output = json_input.select { |obj| match?(obj, parsed_query) }
-
-      output << json_output.to_json
-      output << "\n"
-    end
-
-    private
-
-    def parse_query(query_str)
-      query_str.split(";").map { |kv| kv.split(":") }
-    end
-
-    def match?(object, parsed_query)
-      parsed_query.all? { |match_field| k, v = match_field ; object[k] == v }
+      json_output.start
+      while(@json_producer.has_next?)
+        json_object = @json_producer.next
+        if json_matcher.match?(json_object)
+          json_output.output(json_object)
+        end
+      end
+      json_output.done
     end
   end
 end
