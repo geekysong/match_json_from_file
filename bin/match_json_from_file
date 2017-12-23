@@ -3,5 +3,5 @@ require "bundler/setup"
 require "match_json_from_file"
 
 # make sure query is here
-MatchJsonFromFile::Main.new(STDIN).execute(ARGV[1], STDOUT)
+MatchJsonFromFile::Main.new(STDIN).execute(ARGV, STDOUT)
 

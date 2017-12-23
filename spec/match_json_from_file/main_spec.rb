@@ -6,7 +6,7 @@ RSpec.describe MatchJsonFromFile::Main do
   let(:output) { StringIO.new }
   let(:input) { File.open("spec/resources/projects.json", "r") }
 
-  let(:do_query) { subject.execute(query, output) }
+  let(:do_query) { subject.execute([query], output) }
 
   context "success" do
     before { do_query }

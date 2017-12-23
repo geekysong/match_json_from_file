@@ -9,10 +9,12 @@ module MatchJsonFromFile
     end
 
     # perform query on the output, where query is a string following specific syntax, and output is a stream
-    def execute(query, output)
+    def execute(argv, output)
+      query = argv.first
       raise "undefined query" if query.empty?
 
       parsed_query = parse_query(query)
+
       json_input = JSON.parse(@input.readlines.join("\n"))
       json_output = json_input.select { |obj| match?(obj, parsed_query) }
 
