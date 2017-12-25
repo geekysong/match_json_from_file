@@ -13,7 +13,6 @@ class MatchJsonFromFile::Json::Matcher
 
       case option.operator
       when :'='
-        puts "trying to match, type_aligned_value: #{type_aligned_value}, actual data: #{data}"
         type_aligned_value == data
       else
         false

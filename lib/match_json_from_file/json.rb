@@ -1,3 +1,5 @@
+require 'json'
+
 module MatchJsonFromFile
   module Json
   end

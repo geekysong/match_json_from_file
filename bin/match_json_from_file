@@ -4,10 +4,10 @@ require "match_json_from_file"
 
 # make sure query is here
 
-json_producer = Json::Producer.new(STDIN)
-json_output = Json::Output.new(STDOUT)
-options = SearchOptionParser.new.parse(argv)
-json_matcher = Json::Matcher.new(options)
+json_producer = MatchJsonFromFile::Json::Producer.new(STDIN)
+json_output = MatchJsonFromFile::Json::Output.new(STDOUT)
+options = MatchJsonFromFile::SearchOptionParser.new.parse(ARGV)
+json_matcher = MatchJsonFromFile::Json::Matcher.new(options)
 
 MatchJsonFromFile::Main.new(json_producer, json_output, json_matcher).execute
 
