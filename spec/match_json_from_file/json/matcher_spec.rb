@@ -29,4 +29,12 @@ RSpec.describe MatchJsonFromFile::Json::Matcher do
     it { expect(subject.match?({"name" => {"first" => "mismatch"}})).to be(false) }
     it { expect(subject.match?({"name" => "no object"})).to be(false) }
   end
+
+  describe "digit match" do
+    let(:options) { [ MatchOption.new("age", "18", :'=')] }
+
+    it { expect(subject.match?({"name" => "YY", "age" => 18})).to be(true) }
+    it { expect(subject.match?({"name" => "YY", "age" => 19})).to be(false) }
+    it { expect(subject.match?({"name" => "YY"})).to be(false) }
+  end
 end
