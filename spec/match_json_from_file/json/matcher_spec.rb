@@ -37,4 +37,12 @@ RSpec.describe MatchJsonFromFile::Json::Matcher do
     it { expect(subject.match?({"name" => "YY", "age" => 19})).to be(false) }
     it { expect(subject.match?({"name" => "YY"})).to be(false) }
   end
+
+  describe "float match" do
+    let(:options) { [ MatchOption.new("balance", "100.25", :'=')] }
+
+    it { expect(subject.match?({"name" => "YY", "balance" => 100.25})).to be(true) }
+    it { expect(subject.match?({"name" => "YY", "balance" => 100.26})).to be(false) }
+    it { expect(subject.match?({"name" => "YY"})).to be(false) }
+  end
 end

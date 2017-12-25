@@ -18,6 +18,9 @@ gem install match_json_from_file-*.gem
 match_json_from_file /path/to/file.json "key1:value1;key2:value2"
 ```
 
+Note that key supports nested syntax. Therefore, syntax like "parent.child:v" is
+supported. The value can also be an integer or float.
+
 ## TODOs
 
 - [ ] input arguments

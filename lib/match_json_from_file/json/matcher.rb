@@ -33,6 +33,7 @@ class MatchJsonFromFile::Json::Matcher
     return str_to_align if data.nil?
 
     return str_to_align.to_i if data.is_a? Integer
+    return str_to_align.to_f if data.is_a? Float
     return str_to_align
   end
 end
